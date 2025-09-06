@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('/api/auth/login', { email, password });
+      const response = await axios.post('/api/auth/login/customer', { email, password });
       const { token, user } = response.data;
       localStorage.setItem('token', token);
       setUser(user);
@@ -49,10 +49,23 @@ export const AuthProvider = ({ children }) => {
       return false;
     }
   };
+  const loginAdmin = async (email, password) => {
+    try {
+      const response = await axios.post('/api/auth/login/admin', { email, password });
+      const { token, user } = response.data;
+      localStorage.setItem('token', token);
+      setUser(user);
+      toast.success('Admin login successful!');
+      return true;
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Admin login failed');
+      return false;
+    }
+  };
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('/api/auth/register', userData);
+      const response = await axios.post('/api/auth/signup/customer', userData);
       const { token, user } = response.data;
       localStorage.setItem('token', token);
       setUser(user);
@@ -74,6 +87,7 @@ export const AuthProvider = ({ children }) => {
     user,
     loading,
     login,
+    loginAdmin,
     register,
     logout,
     checkAuth
