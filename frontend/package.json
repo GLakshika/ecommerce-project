@@ -43,7 +43,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3000",
+  "proxy": "http://localhost:5000",
   "overrides": {
     "glob": "^10.3.10",
     "rollup": "^4.9.0",
